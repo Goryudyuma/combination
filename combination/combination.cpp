@@ -102,11 +102,11 @@ public:
 	}
 
 	//a^p % mod
-	long long int powmod( long long int a, long long int p, long long int mod = LLONG_MAX ) {
+	long long int powmod( long long int A, long long int P, long long int M = LLONG_MAX ) {
 		long long int ans = 1;
-		long long int mul = a;
-		for( ; p > 0; p >>= 1, mul = (mul*mul) % mod ) {
-			if( (p & 1) == 1 ) ans = (ans*mul) % mod;
+		long long int mul = A;
+		for( ; P > 0; P >>= 1, mul = (mul*mul) % M ) {
+			if( (P & 1) == 1 ) ans = (ans*mul) % M;
 		}
 		return ans;
 	}
