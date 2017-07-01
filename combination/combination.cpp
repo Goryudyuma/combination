@@ -92,21 +92,21 @@
 //#include <bits/stdc++.h>
 using namespace std;
 
-class combination
-{
+
+class combination {
 public:
 
-	//Nの最大値がわかれば代入する
+//Nの最大値がわかれば代入する
 	combination( long long int combinationThreshold = 1e7 ) {
-		(*this).combinationThreshold = combinationThreshold;
+		( *this ).combinationThreshold = combinationThreshold + 2;
 	}
 
 	//a^p % mod
 	long long int powmod( long long int A, long long int P, long long int M = LLONG_MAX ) {
 		long long int ans = 1;
 		long long int mul = A;
-		for( ; P > 0; P >>= 1, mul = (mul*mul) % M ) {
-			if( (P & 1) == 1 ) ans = (ans*mul) % M;
+		for( ; P > 0; P >>= 1, mul = ( mul*mul ) % M ) {
+			if( ( P & 1 ) == 1 ) ans = ( ans*mul ) % M;
 		}
 		return ans;
 	}
@@ -118,18 +118,19 @@ public:
 				inv = vector<long long int>( combinationThreshold );
 				inv[1] = 1;
 				for( long long int i = 2; i < combinationThreshold; i++ ) {
-					inv[i] = M - (M / i)*inv[M%i] % M;
+					inv[i] = M - ( M / i )*inv[M%i] % M;
 				}
 				fact = vector<long long int>( combinationThreshold );
 				fact[0] = 1;
-				revFact = vector<long long int>( combinationThreshold );
+				revFact = vector<long long int>
+					( combinationThreshold );
 				revFact[0] = 1;
 				for( long long int i = 1; i < combinationThreshold; i++ ) {
-					fact[i] = (fact[i - 1] * i) % M;
-					revFact[i] = (revFact[i - 1] * inv[i]) % M;
+					fact[i] = ( fact[i - 1] * i ) % M;
+					revFact[i] = ( revFact[i - 1] * inv[i] ) % M;
 				}
 			}
-			return (((fact[N] * revFact[K]) % M)*revFact[N - K]) % M;
+			return ( ( ( fact[N] * revFact[K] ) % M )*revFact[N - K] ) % M;
 		} else {
 			return cbOnce( N, K, M );
 		}
@@ -158,6 +159,7 @@ private:
 
 	long long int combinationThreshold;//Nの最大値がわかれば入れる。
 };
+
 
 int main() {
 	long long int W, H;
